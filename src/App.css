@@ -1,0 +1,19 @@
+/* src/index.css or src/App.css */
+.product-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card, .cart-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 200;
+  text-align: center;
+}
+
+.product-card img, .cart-item img {
+  width: 50%;
+  height: auto;
+}
