@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import './../App.css'
-
-export default function Store({ cart, setCart, products }) {
+import React, {useState} from 'react';
+export default function Store({cart, setCart, products}) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const addToCart = (product) => setCart([...cart, product]);
@@ -15,7 +13,7 @@ export default function Store({ cart, setCart, products }) {
         {products.map((p) => (
           <div key={p.code} className="product-card">
             <div className="product-image-wrapper" onClick={() => openImage(p.image)}>
-              <img src={p.image} alt={p.name} className="product-image" />
+              <img src={p.image} alt={p.name} className="product-image"/>
             </div>
             <div className="product-details">
               <h2 className="product-name">{p.name}</h2>
@@ -30,7 +28,7 @@ export default function Store({ cart, setCart, products }) {
 
       {selectedImage && (
         <div className="fullscreen-overlay" onClick={closeImage}>
-          <img src={selectedImage} alt="Full View" className="fullscreen-image" />
+          <img src={selectedImage} alt="Full View" className="fullscreen-image"/>
         </div>
       )}
     </div>
