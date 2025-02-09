@@ -292,7 +292,15 @@ button:hover, .form-button:hover, .add-to-cart-button:hover, .checkout-button:ho
     object-fit: cover;
     border-radius: 8px;
 }
-
+.checkout-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 /* Adjust cart item padding and alignment */
 .cart-item {
     padding: 10px; /* Reduce padding */
