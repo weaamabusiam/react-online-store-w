@@ -39,46 +39,6 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* Product Grid */
-.product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-/* Product Card */
-.product-card {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: right; /* Align text to the right */
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.product-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.product-card h1 {
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-.product-card p {
-    font-size: 0.9rem;
-    margin: 5px 0;
-}
-
 /* Buttons */
 button {
     background-color: #28a745;
@@ -101,14 +61,6 @@ button:hover {
     padding: 15px;
     margin-bottom: 10px;
     text-align: right;
-}
-
-input {
-    text-align: right;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
 }
 
 /* Admin Container Styling */
@@ -135,44 +87,6 @@ input {
     margin-bottom: 10px;
     border-bottom: 2px solid #007bff;
     padding-bottom: 5px;
-}
-
-/* Form Styling */
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.form-input {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    text-align: right;
-}
-
-.form-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Button Styling */
-.form-button {
-    padding: 12px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.form-button:hover {
-    background-color: #218838;
 }
 
 /* Tab Buttons */
@@ -204,7 +118,6 @@ input {
 }
 
 /* Align input and button on the same line */
-/* Align input and button on the same line */
 .search-container {
     display: flex;
     gap: 10px;
@@ -218,13 +131,42 @@ input {
     box-sizing: border-box; /* Ensure padding doesn't affect total height */
 }
 
-
 /* Form Labels Styling */
 .form-label {
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 5px;
     color: #495057;
+}
+
+.form-input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    text-align: right;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+.form-button {
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-button:hover {
+    background-color: #218838;
 }
 
 /* Larger textarea for product description */
@@ -292,21 +234,6 @@ input {
 .cart-item-price {
     font-size: 1rem;
     color: #28a745;
-}
-
-/* Remove Button */
-.remove-button {
-    padding: 10px 15px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.remove-button:hover {
-    background-color: #c82333;
 }
 
 /* Cart Total Styling */
@@ -384,6 +311,8 @@ input {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    padding: 20px;
+
 }
 
 /* Fixed-size Product Card */
@@ -452,6 +381,23 @@ input {
     margin: 10px 0;
 }
 
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-card h1 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+
 /* Add to Cart Button */
 .add-to-cart-button {
     padding: 10px 15px;
@@ -509,21 +455,6 @@ input {
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-
-/* Form Inputs Styling */
-.form-input {
-    padding: 12px;
-    font-size: 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    text-align: right;
-}
-
-.form-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Total Amount Styling */
@@ -660,5 +591,9 @@ input {
 .search-button:hover {
     background-color: #0056b3;
 }
-
-
+.cart-total, .checkout-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #28a745;
+}

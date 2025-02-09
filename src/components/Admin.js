@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { FaSearch } from 'react-icons/fa';
-import './../App.css';
+import React, {useState} from "react";
+import {FaSearch} from 'react-icons/fa';
 
-export default function Admin({ products, setProducts }) {
-  const [newProduct, setNewProduct] = useState({ code: "", name: "", price: "", description: "", image: "" });
+export default function Admin({products, setProducts}) {
+  const [newProduct, setNewProduct] = useState({code: "", name: "", price: "", description: "", image: ""});
   const [editCode, setEditCode] = useState("");
   const [editProduct, setEditProduct] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -15,8 +14,8 @@ export default function Admin({ products, setProducts }) {
       return;
     }
 
-    setProducts([...products, { ...newProduct }]);
-    setNewProduct({ code: "", name: "", price: "", description: "", image: "" });
+    setProducts([...products, {...newProduct}]);
+    setNewProduct({code: "", name: "", price: "", description: "", image: ""});
     alert("המוצר התווסף בהצלחה");
 
   }
@@ -52,9 +51,17 @@ export default function Admin({ products, setProducts }) {
       <h1 className="admin-title">ניהול מוצרים</h1>
 
       <div className="tab-buttons">
-        <button className={`tab-button ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>הוספת מוצר</button>
-        <button className={`tab-button ${activeTab === 'edit' ? 'active' : ''}`} onClick={() => setActiveTab('edit')}>עריכת מוצר</button>
-        <button className={`tab-button ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => { setActiveTab('orders'); fetchOrders(); }}>הזמנות</button>
+        <button className={`tab-button ${activeTab === 'add' ? 'active' : ''}`}
+                onClick={() => setActiveTab('add')}>הוספת מוצר
+        </button>
+        <button className={`tab-button ${activeTab === 'edit' ? 'active' : ''}`}
+                onClick={() => setActiveTab('edit')}>עריכת מוצר
+        </button>
+        <button className={`tab-button ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => {
+          setActiveTab('orders');
+          fetchOrders();
+        }}>הזמנות
+        </button>
       </div>
 
       {activeTab === 'add' && (
@@ -81,78 +88,79 @@ export default function Admin({ products, setProducts }) {
           <h2 className="section-title">עריכת מוצר קיים</h2>
           <div className="form-container">
             <div className="search-container">
-              <input className="form-input search-input" placeholder="הזן קוד מוצר לחיפוש" value={editCode} onChange={e => setEditCode(e.target.value)} />
+              <input className="form-input search-input" placeholder="הזן קוד מוצר לחיפוש" value={editCode}
+                     onChange={e => setEditCode(e.target.value)}/>
               <button className="form-button search-button" onClick={loadProductForEdit}>
-                <FaSearch className="search-icon" />
+                <FaSearch className="search-icon"/>
               </button>
             </div>
 
-          {editProduct && (
-            <div className="form-container">
-              <label className="form-label">שם מוצר</label>
-              <input className="form-input" value={editProduct.name}
-                     onChange={e => setEditProduct({...editProduct, name: e.target.value})}/>
+            {editProduct && (
+              <div className="form-container">
+                <label className="form-label">שם מוצר</label>
+                <input className="form-input" value={editProduct.name}
+                       onChange={e => setEditProduct({...editProduct, name: e.target.value})}/>
 
-              <label className="form-label">מחיר</label>
-              <input className="form-input" type="number" value={editProduct.price}
-                     onChange={e => setEditProduct({...editProduct, price: +e.target.value})}/>
+                <label className="form-label">מחיר</label>
+                <input className="form-input" type="number" value={editProduct.price}
+                       onChange={e => setEditProduct({...editProduct, price: +e.target.value})}/>
 
-              <label className="form-label">תיאור</label>
-              <textarea className="form-input description-input" value={editProduct.description}
-                        onChange={e => setEditProduct({...editProduct, description: e.target.value})}/>
+                <label className="form-label">תיאור</label>
+                <textarea className="form-input description-input" value={editProduct.description}
+                          onChange={e => setEditProduct({...editProduct, description: e.target.value})}/>
 
-              <label className="form-label">כתובת תמונה (URL)</label>
-              <input className="form-input" value={editProduct.image}
-                     onChange={e => setEditProduct({...editProduct, image: e.target.value})}/>
+                <label className="form-label">כתובת תמונה (URL)</label>
+                <input className="form-input" value={editProduct.image}
+                       onChange={e => setEditProduct({...editProduct, image: e.target.value})}/>
 
-              <div className="button-group">
-                <button className="form-button" onClick={updateProduct}>עדכן מוצר</button>
-                <button className="form-button remove-button" onClick={removeProduct}>מחק מוצר</button>
+                <div className="button-group">
+                  <button className="form-button" onClick={updateProduct}>עדכן מוצר</button>
+                  <button className="form-button remove-button" onClick={removeProduct}>מחק מוצר</button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-        </div>
-        )}
-
-{
-  activeTab === 'orders' && (
-    <div className="admin-section">
-      <h2 className="section-title">הזמנות שבוצעו</h2>
-      {orders.length === 0 ? (
-        <p>אין הזמנות להצגה.</p>
-      ) : (
-        <table className="orders-table">
-          <thead>
-          <tr>
-            <th>שם</th>
-            <th>טלפון</th>
-                <th>כתובת</th>
-                <th>פריטים</th>
-                <th>סכום כולל</th>
-              </tr>
-              </thead>
-              <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
-                  <td>{order.name}</td>
-                  <td>{order.phone}</td>
-                  <td>{order.address}</td>
-                  <td>
-                    <ul>
-                      {order.items.map((item, idx) => (
-                        <li key={idx}>{item.name} - {item.price} ש"ח</li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td>{order.total} ש"ח</td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-          )}
+            )}
+          </div>
         </div>
       )}
+
+      {
+        activeTab === 'orders' && (
+          <div className="admin-section">
+            <h2 className="section-title">הזמנות שבוצעו</h2>
+            {orders.length === 0 ? (
+              <p>אין הזמנות להצגה.</p>
+            ) : (
+              <table className="orders-table">
+                <thead>
+                <tr>
+                  <th>שם</th>
+                  <th>טלפון</th>
+                  <th>כתובת</th>
+                  <th>פריטים</th>
+                  <th>סכום כולל</th>
+                </tr>
+                </thead>
+                <tbody>
+                {orders.map((order, index) => (
+                  <tr key={index}>
+                    <td>{order.name}</td>
+                    <td>{order.phone}</td>
+                    <td>{order.address}</td>
+                    <td>
+                      <ul>
+                        {order.items.map((item, idx) => (
+                          <li key={idx}>{item.name} - {item.price} ש"ח</li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td>{order.total} ש"ח</td>
+                  </tr>
+                ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        )}
     </div>
   );
 }

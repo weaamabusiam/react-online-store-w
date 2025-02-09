@@ -1,7 +1,6 @@
-import './../App.css'
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-export default function Cart({ cart, setCart }) {
+export default function Cart({cart, setCart}) {
   const removeFromCart = (code) => setCart(cart.filter((item) => item.code !== code));
   const navigate = useNavigate();
 
@@ -19,7 +18,7 @@ export default function Cart({ cart, setCart }) {
           {cart.map((item) => (
             <div key={item.code} className="cart-item">
               <div className="cart-item-image-wrapper">
-                <img src={item.image} alt={item.name} className="cart-item-image" />
+                <img src={item.image} alt={item.name} className="cart-item-image"/>
               </div>
               <div className="cart-item-details">
                 <p className="cart-item-name">{item.name}</p>

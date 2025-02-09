@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaStore, FaUserCog } from 'react-icons/fa';
-import './../App.css';
-
 export default function Header({ cartSize }) {
   return (
     <nav className="header-container">

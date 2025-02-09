@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import './../App.css';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-export default function Checkout({ cart, setCart }) {
+export default function Checkout({cart, setCart}) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');

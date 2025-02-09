@@ -76,17 +76,18 @@ The app will run at `http://localhost:3000` by default.
 react-online-store/
 |├── public/
 |├── src/
-|   |├── components/
-|   |   |├── Admin.js
-|   |   |├── Cart.js
-|   |   |└── Store.js
-|   |   |└── Checkout.js
-|   |
-|   |├── App.js
-|   |├── App.css
-|   |└── index.js
-|
-|└── package.json
+|    ├── components/
+|    │   ├── Store.js
+|    │   ├── Store.css
+|    │   ├── Admin.js
+|    │   ├── Admin.css
+|    │   ├── Cart.js
+|    │   ├── Cart.css
+|    │   ├── Header.js
+|    │   └── Header.css
+|    ├── App.js
+|    └── index.js
+
 ```
 
 ---
