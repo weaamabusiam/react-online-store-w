@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaSearch } from 'react-icons/fa';
 import './../App.css';
 
 export default function Admin({ products, setProducts }) {
@@ -9,23 +10,36 @@ export default function Admin({ products, setProducts }) {
   const [activeTab, setActiveTab] = useState('add');
 
   function addProduct() {
-    setProducts([...products, { ...newProduct, code: products.length + 1 }]);
+    if (!newProduct.name || !newProduct.code || !newProduct.price) {
+      alert("אנא מלא את כל השדות הנדרשים: שם מוצר, קוד מוצר, מחיר.");
+      return;
+    }
+
+    setProducts([...products, { ...newProduct }]);
     setNewProduct({ code: "", name: "", price: "", description: "", image: "" });
+    alert("המוצר התווסף בהצלחה");
+
   }
 
   function loadProductForEdit() {
-    const found = products.find(p => p.code == editCode);
+    const found = products.find(p => p.code === editCode);
     setEditProduct(found || null);
   }
 
   function updateProduct() {
-    setProducts(products.map(p => (p.code == editProduct.code ? editProduct : p)));
+    if (!editProduct) return;
+    setProducts(products.map(p => (p.code === editProduct.code ? editProduct : p)));
     setEditProduct(null);
+    alert("המוצר התעדכן בהצלחה");
+
   }
 
   function removeProduct() {
+    if (!editProduct) return;
     setProducts(products.filter(p => p.code !== editProduct.code));
     setEditProduct(null);
+    alert("המוצר הוסר בהצלחה");
+
   }
 
   function fetchOrders() {
@@ -47,10 +61,16 @@ export default function Admin({ products, setProducts }) {
         <div className="admin-section">
           <h2 className="section-title">הוספת מוצר חדש</h2>
           <div className="form-container">
-            <input className="form-input" placeholder="שם מוצר" value={newProduct.name} onChange={e => setNewProduct({ ...newProduct, name: e.target.value })} />
-            <input className="form-input" placeholder="מחיר" type="number" value={newProduct.price} onChange={e => setNewProduct({ ...newProduct, price: +e.target.value })} />
-            <textarea className="form-input description-input" placeholder="תיאור" value={newProduct.description} onChange={e => setNewProduct({ ...newProduct, description: e.target.value })} />
-            <input className="form-input" placeholder="כתובת תמונה (URL)" value={newProduct.image} onChange={e => setNewProduct({ ...newProduct, image: e.target.value })} />
+            <input className="form-input" placeholder="שם מוצר" value={newProduct.name}
+                   onChange={e => setNewProduct({...newProduct, name: e.target.value})}/>
+            <input className="form-input" placeholder="קוד מוצר" value={newProduct.code}
+                   onChange={e => setNewProduct({...newProduct, code: e.target.value})}/>
+            <input className="form-input" placeholder="מחיר" type="number" value={newProduct.price}
+                   onChange={e => setNewProduct({...newProduct, price: +e.target.value})}/>
+            <textarea className="form-input description-input" placeholder="תיאור" value={newProduct.description}
+                      onChange={e => setNewProduct({...newProduct, description: e.target.value})}/>
+            <input className="form-input" placeholder="כתובת תמונה (URL)" value={newProduct.image}
+                   onChange={e => setNewProduct({...newProduct, image: e.target.value})}/>
             <button className="form-button" onClick={addProduct}>הוסף מוצר</button>
           </div>
         </div>
@@ -61,45 +81,52 @@ export default function Admin({ products, setProducts }) {
           <h2 className="section-title">עריכת מוצר קיים</h2>
           <div className="form-container">
             <div className="search-container">
-              <input className="form-input search-input" placeholder="קוד מוצר" value={editCode} onChange={e => setEditCode(e.target.value)} />
-              <button className="form-button search-button" onClick={loadProductForEdit}>חפש מוצר</button>
+              <input className="form-input search-input" placeholder="הזן קוד מוצר לחיפוש" value={editCode} onChange={e => setEditCode(e.target.value)} />
+              <button className="form-button search-button" onClick={loadProductForEdit}>
+                <FaSearch className="search-icon" />
+              </button>
             </div>
 
-            {editProduct && (
-              <div className="form-container">
-                <label className="form-label">שם מוצר</label>
-                <input className="form-input" value={editProduct.name} onChange={e => setEditProduct({ ...editProduct, name: e.target.value })} />
+          {editProduct && (
+            <div className="form-container">
+              <label className="form-label">שם מוצר</label>
+              <input className="form-input" value={editProduct.name}
+                     onChange={e => setEditProduct({...editProduct, name: e.target.value})}/>
 
-                <label className="form-label">מחיר</label>
-                <input className="form-input" type="number" value={editProduct.price} onChange={e => setEditProduct({ ...editProduct, price: +e.target.value })} />
+              <label className="form-label">מחיר</label>
+              <input className="form-input" type="number" value={editProduct.price}
+                     onChange={e => setEditProduct({...editProduct, price: +e.target.value})}/>
 
-                <label className="form-label">תיאור</label>
-                <textarea className="form-input description-input" value={editProduct.description} onChange={e => setEditProduct({ ...editProduct, description: e.target.value })} />
+              <label className="form-label">תיאור</label>
+              <textarea className="form-input description-input" value={editProduct.description}
+                        onChange={e => setEditProduct({...editProduct, description: e.target.value})}/>
 
-                <label className="form-label">כתובת תמונה (URL)</label>
-                <input className="form-input" value={editProduct.image} onChange={e => setEditProduct({ ...editProduct, image: e.target.value })} />
+              <label className="form-label">כתובת תמונה (URL)</label>
+              <input className="form-input" value={editProduct.image}
+                     onChange={e => setEditProduct({...editProduct, image: e.target.value})}/>
 
-                <div className="button-group">
-                  <button className="form-button" onClick={updateProduct}>עדכן מוצר</button>
-                  <button className="form-button remove-button" onClick={removeProduct}>מחק מוצר</button>
-                </div>
+              <div className="button-group">
+                <button className="form-button" onClick={updateProduct}>עדכן מוצר</button>
+                <button className="form-button remove-button" onClick={removeProduct}>מחק מוצר</button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      )}
+        </div>
+        )}
 
-      {activeTab === 'orders' && (
-        <div className="admin-section">
-          <h2 className="section-title">הזמנות שבוצעו</h2>
-          {orders.length === 0 ? (
-            <p>אין הזמנות להצגה.</p>
-          ) : (
-            <table className="orders-table">
-              <thead>
-              <tr>
-                <th>שם</th>
-                <th>טלפון</th>
+{
+  activeTab === 'orders' && (
+    <div className="admin-section">
+      <h2 className="section-title">הזמנות שבוצעו</h2>
+      {orders.length === 0 ? (
+        <p>אין הזמנות להצגה.</p>
+      ) : (
+        <table className="orders-table">
+          <thead>
+          <tr>
+            <th>שם</th>
+            <th>טלפון</th>
                 <th>כתובת</th>
                 <th>פריטים</th>
                 <th>סכום כולל</th>

@@ -6,6 +6,7 @@ export default function Checkout({ cart, setCart }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [id_number, setIdNumber] = useState('');
   const navigate = useNavigate();
 
   const handlePurchase = () => {
@@ -45,6 +46,12 @@ export default function Checkout({ cart, setCart }) {
           placeholder="מספר טלפון"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+        />
+        <input
+          className="form-input"
+          placeholder="תעודת זהות"
+          value={id_number}
+          onChange={(e) => setIdNumber(e.target.value)}
         />
         <input
           className="form-input"
