@@ -10,21 +10,21 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([
     {
-      code: 111111,
+      code: '111111',
       name: "אוזניות אלחוטיות",
       price: 800,
       description: "אוזניות אלחוטיות עם ביטול רעשים ואיכות סאונד גבוהה.",
       image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSskR_QiSImhErdF7H557IkQ6udVemul5c7UplG6cnS1tftunFQWTD2yAdZSBkA1br2XRLFcKp9uxTnVC_cN2VskArULtyMaOw3uiTohjUzXI5dbko3QPNTcU70PJMedWqIatEw_w&usqp=CAc"
     },
     {
-      code: 222222,
+      code: '222222',
       name: 'Iphone 17',
       description: 'אייפון 17 חדש',
       price: 2999.99,
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvxuBLrua-Ea0yeNzfcHpzxhPtlVW6sc4yag&s'
     },
     {
-      code: 333333,
+      code: '333333',
       name: 'lenovo Octupus',
       description: 'מחשב נייד לינובו בעל 40 ליבות',
       price: 4099.99,
