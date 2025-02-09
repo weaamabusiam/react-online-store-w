@@ -1,14 +1,19 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';  // Importing X icon
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Cart({ cart, setCart }) {
-
+  const navigate = useNavigate();
   const removeFromCart = (productCode) => {
     const updatedCart = cart.filter(item => item.code !== productCode);
     setCart(updatedCart);
   };
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const proceedToCheckout = () => {
+    navigate('/checkout');
+  };
 
   return (
     <div className="cart-container">
@@ -50,8 +55,7 @@ export default function Cart({ cart, setCart }) {
           </table>
 
           <p className="cart-total">סה"כ: {totalPrice} ש"ח</p>
-
-          <button className="checkout-button">לתשלום</button>
+          <button className="checkout-button" onClick={proceedToCheckout} >לתשלום</button>
         </>
       )}
     </div>
