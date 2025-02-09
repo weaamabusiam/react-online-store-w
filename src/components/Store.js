@@ -1,29 +1,38 @@
-// import { useState } from "react";
+import React, { useState } from 'react';
 import './../App.css'
 
-export default function Store({ cart, setCart,products }) {
-//   const [products] = useState([
-//     { code: 1, name: "Computer", price: 2000, image: "https://th.bing.com/th/id/OIP.eU-2D9pFINQmWfM8fImAYAHaEY?rs=1&pid=ImgDetMain" },
-//     { code: 2, name: "Ihone", price: 1000, image: "https://th.bing.com/th/id/OIP.f0TxVuQRnOhEoQq9JCmlzwHaHa?rs=1&pid=ImgDetMain" }
-//   ]);
+export default function Store({ cart, setCart, products }) {
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const addToCart = (product) => setCart([...cart, product]);
+  const openImage = (image) => setSelectedImage(image);
+  const closeImage = () => setSelectedImage(null);
 
   return (
-    <div>
-      <h1>חנות</h1>
+    <div className="store-container">
+      <h1 className="store-title">חנות</h1>
       <div className="product-list">
         {products.map((p) => (
           <div key={p.code} className="product-card">
-            <img src={p.image} alt={p.name} />
-            <h1>{p.name}</h1>
-            <p>{p.description}</p>
-            <p>קוד מוצר: {p.code}</p>
-            <p>מחיר: {p.price} ש"ח</p>
-            <button onClick={() => addToCart(p)}>הוסף לעגלה</button>
+            <div className="product-image-wrapper" onClick={() => openImage(p.image)}>
+              <img src={p.image} alt={p.name} className="product-image" />
+            </div>
+            <div className="product-details">
+              <h2 className="product-name">{p.name}</h2>
+              <p className="product-description">{p.description}</p>
+              <p className="product-code">קוד מוצר: {p.code}</p>
+              <p className="product-price">מחיר: {p.price} ש"ח</p>
+              <button className="add-to-cart-button" onClick={() => addToCart(p)}>הוסף לעגלה</button>
+            </div>
           </div>
         ))}
       </div>
+
+      {selectedImage && (
+        <div className="fullscreen-overlay" onClick={closeImage}>
+          <img src={selectedImage} alt="Full View" className="fullscreen-image" />
+        </div>
+      )}
     </div>
   );
 }
