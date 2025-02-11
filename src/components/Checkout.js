@@ -24,7 +24,6 @@ export default function Checkout({cart, setCart}) {
 
     const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
     localStorage.setItem('orders', JSON.stringify([...existingOrders, order]));
-
     alert('הרכישה בוצעה בהצלחה!');
     setCart([]);
     navigate('/');

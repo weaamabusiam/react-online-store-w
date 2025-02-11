@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 export default function Store({cart, setCart, products}) {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // const addToCart = (product) => setCart([...cart, product]);
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.code === product.code);
-  
+
       if (existingProduct) {
         return prevCart.map(item =>
           item.code === product.code ? { ...item, amount: item.amount + 1 } : item
@@ -14,8 +15,8 @@ export default function Store({cart, setCart, products}) {
         return [...prevCart, { ...product, amount: 1 }];
       }
     });
+
   };
-  
   const openImage = (image) => setSelectedImage(image);
   const closeImage = () => setSelectedImage(null);
 

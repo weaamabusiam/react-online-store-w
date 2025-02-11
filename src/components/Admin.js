@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import './../App.css';
+import React, { useState} from "react";
 
 export default function Admin({ products, setProducts }) {
   const [newProduct, setNewProduct] = useState({ code: "", name: "", price: "", description: "", image: "" });
@@ -8,23 +7,13 @@ export default function Admin({ products, setProducts }) {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState('add');
 
-  // Load products from localStorage when component mounts
-  useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-    if (storedProducts.length > 0) {
-      setProducts(storedProducts);
-    }
-  }, [setProducts]);
-
-  // Save products to localStorage whenever products change
-  useEffect(() => {
-    localStorage.setItem('products', JSON.stringify(products));
-  }, [products]);
 
   function addProduct() {
     const updatedProducts = [...products, { ...newProduct }];
     setProducts(updatedProducts);
     setNewProduct({ code: "", name: "", price: "", description: "", image: "" });
+    alert("המוצר התווסף בהצלחה");
+
   }
 
   function loadProductForEdit() {
@@ -36,12 +25,16 @@ export default function Admin({ products, setProducts }) {
     const updatedProducts = products.map(p => (p.code === editProduct.code ? editProduct : p));
     setProducts(updatedProducts);
     setEditProduct(null);
+    alert("המוצר התעדכן בהצלחה");
+
   }
 
   function removeProduct() {
     const updatedProducts = products.filter(p => p.code !== editProduct.code);
     setProducts(updatedProducts);
     setEditProduct(null);
+    alert("המוצר הוסר בהצלחה");
+
   }
 
   function fetchOrders() {
@@ -98,6 +91,7 @@ export default function Admin({ products, setProducts }) {
 
                     <label className="form-label">מחיר</label>
                     <input className="form-input" type="number" value={editProduct.price} onChange={e => setEditProduct({ ...editProduct, price: +e.target.value })} />
+
                     <label className="form-label">תיאור</label>
                     <textarea className="form-input description-input" value={editProduct.description} onChange={e => setEditProduct({ ...editProduct, description: e.target.value })} />
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';  // Importing X icon
 import { useNavigate } from 'react-router-dom';
 
 export default function Cart({ cart, setCart }) {
@@ -26,34 +26,34 @@ export default function Cart({ cart, setCart }) {
         <>
           <table className="cart-table">
             <thead>
-              <tr>
-                <th>תמונה</th>
-                <th>שם המוצר</th>
-                <th>מחיר ליחידה</th>
-                <th>כמות</th>
-                <th>הסר</th>
-              </tr>
+            <tr>
+              <th>תמונה</th>
+              <th>שם המוצר</th>
+              <th>מחיר ליחידה</th>
+              <th>כמות</th>
+              <th>הסר</th>
+            </tr>
             </thead>
             <tbody>
-              {cart.map((item) => (
-                <tr key={item.code}>
-                  <td>
-                    <img src={item.image} alt={item.name} className="cart-item-image" />
-                  </td>
-                  <td>{item.name}</td>
-                  <td>{item.price} ש"ח</td>
-                  <td>{item.amount}</td>
-                  <td>
-                    <button
-                      className="cart-remove-button"
-                      onClick={() => removeFromCart(item.code)}
-                      aria-label="Remove item"
-                    >
-                      <FaTimes />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+            {cart.map((item) => (
+              <tr key={item.code}>
+                <td>
+                  <img src={item.image} alt={item.name} className="cart-item-image" />
+                </td>
+                <td>{item.name}</td>
+                <td>{item.price} ש"ח</td>
+                <td>{item.amount}</td>
+                <td>
+                  <button
+                    className="cart-remove-button"
+                    onClick={() => removeFromCart(item.code)}
+                    aria-label="Remove item"
+                  >
+                    <FaTimes />
+                  </button>
+                </td>
+              </tr>
+            ))}
             </tbody>
           </table>
 
