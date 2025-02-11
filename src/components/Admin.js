@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './../App.css';
 
 export default function Admin({ products, setProducts }) {
@@ -8,8 +8,22 @@ export default function Admin({ products, setProducts }) {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState('add');
 
+  // Load products from localStorage when component mounts
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+    if (storedProducts.length > 0) {
+      setProducts(storedProducts);
+    }
+  }, [setProducts]);
+
+  // Save products to localStorage whenever products change
+  useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products));
+  }, [products]);
+
   function addProduct() {
-    setProducts([...products, { ...newProduct }]);
+    const updatedProducts = [...products, { ...newProduct }];
+    setProducts(updatedProducts);
     setNewProduct({ code: "", name: "", price: "", description: "", image: "" });
   }
 
@@ -19,12 +33,14 @@ export default function Admin({ products, setProducts }) {
   }
 
   function updateProduct() {
-    setProducts(products.map(p => (p.code === editProduct.code ? editProduct : p)));
+    const updatedProducts = products.map(p => (p.code === editProduct.code ? editProduct : p));
+    setProducts(updatedProducts);
     setEditProduct(null);
   }
 
   function removeProduct() {
-    setProducts(products.filter(p => p.code !== editProduct.code));
+    const updatedProducts = products.filter(p => p.code !== editProduct.code);
+    setProducts(updatedProducts);
     setEditProduct(null);
   }
 
@@ -38,14 +54,14 @@ export default function Admin({ products, setProducts }) {
       <h1 className="admin-title">ניהול מוצרים</h1>
 
       <div className="admin-content">
-        {/* Vertical Tabs on the Left */}
+        {/* Sidebar Tabs */}
         <div className="tab-sidebar">
           <button className={`tab-button ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>הוספת מוצר</button>
           <button className={`tab-button ${activeTab === 'edit' ? 'active' : ''}`} onClick={() => setActiveTab('edit')}>עריכת מוצר</button>
           <button className={`tab-button ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => { setActiveTab('orders'); fetchOrders(); }}>הזמנות</button>
         </div>
 
-        {/* Form Section on the Right */}
+        {/* Form Section */}
         <div className="form-section">
           {activeTab === 'add' && (
             <div>
@@ -82,7 +98,6 @@ export default function Admin({ products, setProducts }) {
 
                     <label className="form-label">מחיר</label>
                     <input className="form-input" type="number" value={editProduct.price} onChange={e => setEditProduct({ ...editProduct, price: +e.target.value })} />
-
                     <label className="form-label">תיאור</label>
                     <textarea className="form-input description-input" value={editProduct.description} onChange={e => setEditProduct({ ...editProduct, description: e.target.value })} />
 
@@ -124,11 +139,11 @@ export default function Admin({ products, setProducts }) {
                       <td>
                         <ul>
                           {order.items.map((item, idx) => (
-                            <li key={idx}>{item.code} </li>
+                            <li key={idx}>{item.name} - {item.price} ש\"ח</li>
                           ))}
                         </ul>
                       </td>
-                      <td>{order.total} ש"ח</td>
+                      <td>{order.total} ש\"ח</td>
                     </tr>
                   ))}
                   </tbody>

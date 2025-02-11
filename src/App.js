@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Routes, Route} from "react-router-dom";  // Removed BrowserRouter here
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Store from "./components/Store";
 import Admin from "./components/Admin";
 import Cart from "./components/Cart";
@@ -7,8 +7,7 @@ import Checkout from "./components/Checkout";
 import Header from "./components/Header";
 
 export default function App() {
-  const [cart, setCart] = useState([]);
-  const [products, setProducts] = useState([
+  const defaultProducts = [
     {
       code: '111111',
       name: "אוזניות אלחוטיות",
@@ -25,21 +24,41 @@ export default function App() {
     },
     {
       code: '333333',
-      name: 'lenovo Octupus',
+      name: 'Lenovo Octopus',
       description: 'מחשב נייד לינובו בעל 40 ליבות',
       price: 4099.99,
       image: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTyjXOA0lFwvyjXsPhpSUCdp8SLAIcWlObLstF7Y7W78CPJvbICyIs95ZyNaF5G_kPuNjW7GMD5D8YnP2hojST3ToP4w42bIXKFjpkwiG1dT1qAN3rvEpi-Se0PtZ_A9I5y7CQ18f0&usqp=CAc'
     },
-  ]);
+  ];
+
+  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  // Load products from localStorage or save default products if none exist
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem('products'));
+
+    if (storedProducts && storedProducts.length > 0) {
+      setProducts(storedProducts);  // Load existing products from localStorage
+    } else {
+      localStorage.setItem('products', JSON.stringify(defaultProducts));  // Save default products if none exist
+      setProducts(defaultProducts);  // Set default products in state
+    }
+  }, []);
+
+  // Save products to localStorage whenever products state changes
+  useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products));
+  }, [products]);
 
   return (
     <>
-      <Header cartSize={cart.length}/>
+      <Header cartSize={cart.length} />
       <Routes>
-        <Route path="/" element={<Store cart={cart} setCart={setCart} products={products}/>}/>
-        <Route path="/admin" element={<Admin products={products} setProducts={setProducts}/>}/>
-        <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>}/>
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart}/>}/>
+        <Route path="/" element={<Store cart={cart} setCart={setCart} products={products} />} />
+        <Route path="/admin" element={<Admin products={products} setProducts={setProducts} />} />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} />} />
       </Routes>
     </>
   );
